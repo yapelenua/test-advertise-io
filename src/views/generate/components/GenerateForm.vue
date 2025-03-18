@@ -1,11 +1,10 @@
 <template>
-  <div v-if="!imageUrl && !isLoading" class="w-full flex justify-center items-center h-full">
-    <el-form
-      v-if="preferedOption === 'option'"
+  <div v-if="!imageUrl && !isLoading" class="w-full flex justify-center items-center" :class="{ 'h-full': preferedOption === 'manual' }">
+    <div v-if="preferedOption === 'option'" class="mb-[50px] h-full overflow-y-auto">
+      <el-form
       :model="form"
       label-position="top"
       class="w-[450px]"
-      @submit.prevent="generateImage"
     >
       <el-form-item
         v-for="field in formConfig"
@@ -14,23 +13,21 @@
       >
         <el-input v-model="form[field.model]" clearable :placeholder="field.placeholder" />
       </el-form-item>
-      <el-form-item>
-        <AppButton type="submit">Generate</AppButton>
-      </el-form-item>
     </el-form>
+    <AppButton @buttonClick="generateImage()">Generate</AppButton>
+    </div>
 
     <el-form
       v-if="preferedOption === 'manual'"
       :model="form"
       label-position="top"
       class="w-[450px]"
-      @submit.prevent="generateImage"
     >
       <el-form-item label="Enter your custom prompt">
         <el-input v-model="userPrompt" clearable type="textarea" :autosize="{ minRows: 4, maxRows: 8 }" />
       </el-form-item>
       <el-form-item>
-        <AppButton type="submit">Generate</AppButton>
+        <AppButton @buttonClick="generateImage()">Generate</AppButton>
       </el-form-item>
     </el-form>
   </div>
@@ -41,9 +38,8 @@ import { form, formConfig } from '../utils/form.config'
 import axios from 'axios'
 import { generatePrompt, uploadImage } from '../utils/helpers'
 
-const { isLoading, imageUrl, preferedOption } = useGenerate()
+const { isLoading, imageUrl, preferedOption, userPrompt } = useGenerate()
 
-const userPrompt = ref('')
 
 async function generateImage () {
   isLoading.value = true

@@ -3,7 +3,7 @@
     <Header />
     <div class="flex h-full">
       <Sidebar />
-      <div class="w-full flex justify-center bg-zink-900 rounded-tl-[32px]">
+      <div class="w-full flex justify-center bg-zink-900 rounded-tl-[32px] overflow-y-auto">
         <router-view />
         <Modals />
       </div>
