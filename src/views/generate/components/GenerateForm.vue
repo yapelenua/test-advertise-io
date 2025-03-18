@@ -12,7 +12,7 @@
         :key="field.model"
         :label="field.label"
       >
-        <el-input v-model="field.model" clearable :placeholder="field.placeholder" />
+        <el-input v-model="form[field.model]" clearable :placeholder="field.placeholder" />
       </el-form-item>
       <el-form-item>
         <AppButton type="submit">Generate</AppButton>

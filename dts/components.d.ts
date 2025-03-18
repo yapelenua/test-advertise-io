@@ -48,6 +48,7 @@ declare module 'vue' {
     IconCar: typeof import('~icons/icon/car')['default']
     IconCart: typeof import('~icons/icon/cart')['default']
     IconCheckFilled: typeof import('~icons/icon/check-filled')['default']
+    ImageModal: typeof import('./../src/views/galery/components/ImageModal.vue')['default']
     ItemObserver: typeof import('./../src/views/example-view/components/ItemObserver.vue')['default']
     Loader: typeof import('./../src/views/generate/components/Loader.vue')['default']
     Modals: typeof import('./../src/components/Modals.vue')['default']
