@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-xl mx-auto p-4 bg-neutral-700 rounded-2xl shadow-md flex flex-col space-y-4">
+    <div class="max-w-xl mx-auto p-4 bg-neutral-700 rounded-2xl shadow-md flex flex-col space-y-4 max-h-[600px]">
       <div class="h-96 overflow-y-auto space-y-3">
         <div
           v-for="(msg, i) in messages"
@@ -14,11 +14,13 @@
       </div>
   
       <form @submit.prevent="sendMessage" class="flex gap-2">
-        <input
+        <el-input
           v-model="input"
-          type="text"
+          type="textarea"
+          resize="none"
+          :autosize="{ minRows: 4, maxRows: 8 }"
           placeholder="Type your message..."
-          class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+          class="flex-1 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-none"
         />
         <button
           type="submit"
@@ -34,8 +36,9 @@
   <script setup>
   import { ref } from 'vue'
   import axios from 'axios'
+
+  const { input } = useGenerate()
   
-  const input = ref('')
   const loading = ref(false)
   const messages = ref([])
   
@@ -48,7 +51,7 @@
     loading.value = true
   
     try {
-      const res = await axios.post('http://localhost:8089/chat', {
+      const res = await axios.post('https://advertise-io-be.onrender.com/chat', {
         prompt: userMessage,
       })
   

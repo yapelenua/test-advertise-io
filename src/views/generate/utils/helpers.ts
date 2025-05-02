@@ -72,7 +72,7 @@ export async function generateImage () {
   console.log(imageWidth.value, imageHeight.value)
 
   try {
-    const response = await axios.post('http://localhost:8089/query', {
+    const response = await axios.post('https://advertise-io-be.onrender.com/image', {
       prompt,
       width: Number(imageWidth.value),
       height: Number(imageHeight.value)

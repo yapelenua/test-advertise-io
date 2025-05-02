@@ -7,6 +7,7 @@ export const useGenerateStore = defineStore('generateStore', () => {
   const preferedOption = ref('option')
   const images = ref()
   const userPrompt = ref('')
+  const input = ref('')
 
 
   const suggestedPrompt = () => {
@@ -37,7 +38,8 @@ Be aware: All texts and icons that I wrote are required. Do not write your own t
     images,
     imageUrl,
     isLoading,
-    preferedOption
+    preferedOption,
+    input
   }
 })
 

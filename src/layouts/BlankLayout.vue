@@ -7,8 +7,9 @@
         <router-view />
         <Modals />
       </div>
-      <div class="w-[400px] h-full rounded-[32px] p-[32px]">
+      <div class="w-[500px] h-full rounded-[32px] p-[32px] flex flex-col">
         <Chat />
+        <SuggestionsBlock />
       </div>
     </div>
   </div>
