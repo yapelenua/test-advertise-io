@@ -4,7 +4,8 @@ export const form = ref({
   imageContent: '',
   colors: '',
   ctaText: '',
-  designStyle: ''
+  designStyle: '',
+  imageSize: ''
 })
 
 export const formConfig = ref([

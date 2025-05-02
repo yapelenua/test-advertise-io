@@ -1,21 +1,28 @@
 import { form } from '../utils/form.config'
 import { supabase } from '@/supabase'
+import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
 const { user } = useGeneral()
+const { isLoading, imageUrl, preferedOption, userPrompt } = useGenerate()
+
 
 export const generatePrompt = () => {
   return `
-Create a strictly regulated promotional banner for the ${form.value.niche} industry. The banner is for a company named "${form.value.companyName}", and the logo must be placed at the top of the image. The image must explicitly depict ${form.value.imageContent} exactly as described, without any omissions, alterations, or creative interpretations.
-
-The primary colors must be ${form.value.colors}, and no additional shades or variations are allowed. The call-to-action text must be included exactly as written: "${form.value.ctaText}", positioned at the bottom center without modification. No other text, symbols, or elements should be added to the image. The design must strictly adhere to the ${form.value.designStyle} style, ensuring no stylistic deviations.
-
-The image must be precisely 1920x1080 pixels—no resizing, cropping, or aspect ratio changes are permitted. All text and symbols must be rendered with absolute clarity and legibility, ensuring perfect readability without distortions, blurring, or misalignment.
-
-You must not alter, add, remove, or interpret any elements differently from what is explicitly provided by me. Any deviation from the specified instructions is strictly prohibited. The design must be perfectly balanced and optimized for online advertising, ensuring professional visual quality. The inclusion of the call-to-action text is mandatory and cannot be omitted under any circumstances.
-
-Be aware All textes and icons that a wrote is required, Don't write tyour own text, only text that i wrote `
+ Create a promotional banner for the ${form.value.niche} industry.
+  The banner is for a company named '${form.value.companyName}', 
+  and the logo should be placed in a top of picture.
+  The image should depict ${form.value.imageContent}.
+  Include ${form.value.colors} as the primary colors.
+  Add a call-to-action text that says, '${form.value.ctaText}' 
+  positioned at the bottom center.
+  The banner should have a ${form.value.designStyle} style. 
+  Ensure the overall design is visually balanced and optimized for use in online advertisements.
+  Be aware, call to action text is required `
 }
+
+const imageWidth = computed(() => form.value.imageSize.split('x')[0])
+const imageHeight = computed(() => form.value.imageSize.split('x')[1])
 
 export const base64ToFile = (base64Url: string, filename: string): File => {
   const arr = base64Url.split(',')
@@ -56,4 +63,26 @@ export async function uploadImage (url: string) {
   }
 
   console.log('Image uploaded successfully', data)
+}
+
+export async function generateImage () {
+  isLoading.value = true
+  const prompt = preferedOption.value === 'option' ? generatePrompt() : userPrompt.value
+
+  console.log(imageWidth.value, imageHeight.value)
+
+  try {
+    const response = await axios.post('http://localhost:8089/query', {
+      prompt,
+      width: Number(imageWidth.value),
+      height: Number(imageHeight.value)
+    })
+
+    imageUrl.value = response.data.image
+  } catch (error) {
+    console.error('Error fetching response:', error.response?.data || error.message)
+    throw error
+  } finally {
+    isLoading.value = false
+  }
 }

@@ -7,6 +7,9 @@
         <router-view />
         <Modals />
       </div>
+      <div class="w-[400px] h-full rounded-[32px] p-[32px]">
+        <Chat />
+      </div>
     </div>
   </div>
 </template>

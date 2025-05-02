@@ -1,5 +1,17 @@
 @use "element-plus/theme-chalk/src/input";
+@use "element-plus/theme-chalk/src/select";
+@use "element-plus/theme-chalk/src/tooltip";
 
 .el-input{
     @apply h-[56px];
+}
+
+.el-select{
+    &__wrapper{
+        @apply h-[56px] bg-[#404040] rounded-[12px] border-[#404040] #{!important};
+    }
+
+    &__wrapper,is-focused{
+        @apply border-white;
+    }
 }

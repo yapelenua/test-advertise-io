@@ -8,6 +8,9 @@
      'bg-color': colors.$inputBgColor,
      'text-color': white,
      'focus-border-color': white
+    ),
+    $select: (
+     'input-focus-border-color': red
     )
 );
 
@@ -15,7 +18,6 @@
 @use "element-plus/theme-chalk/src/button";
 @use "element-plus/theme-chalk/src/badge";
 @use "element-plus/theme-chalk/src/message";
-@use "element-plus/theme-chalk/src/select";
 @use "element-plus/theme-chalk/src/scrollbar";
 @use "element-plus/theme-chalk/src/empty";
 @use "element-plus/theme-chalk/src/option";
@@ -33,4 +35,7 @@
 @use "element-plus/theme-chalk/src/notification";
 @use "element-plus/theme-chalk/src/dialog";
 @use "element-plus/theme-chalk/src/overlay";
+@use "element-plus/theme-chalk/src/step";
+@use "element-plus/theme-chalk/src/steps";
 @import "./input.scss";
+
